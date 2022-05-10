@@ -1,5 +1,5 @@
 # Human-Activity-Recognition
-This project includes three main steps that I will explain separately here.
+This project includes three main steps that I will explain separately here. You can also find a video contains a detail explanation about how to run and work with GUI in this link: https://drive.google.com/drive/u/0/folders/1DZN__NNtO84CpU_Lf9Uy0PHe87KnWq9s .
 
 ## The first step is preprocessing. You can find the .py and .ipynb codes of this step in Preprocessing folder.
 In this step, we read the video dataset files and break them into some parts that each part has the same length. Then, I extract the fixed number of frames from each part, attach them, and save them as one big picture.
