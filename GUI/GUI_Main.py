@@ -4,7 +4,7 @@ from Manual_test import preprocess_manual
 import tkinter as tk
 from tkinter import filedialog
 
-class ActivityDetector:
+class ConfusionDetector:
     def __init__(self, master):
         self.master = master
         self.Initialize_Objects()
@@ -65,7 +65,7 @@ class ActivityDetector:
         
         self.center_window(750, 300)
         
-        #tk.Tk.title("Activity Detection")
+        #tk.Tk.title("Confusion Detection")
         object_length = 40
         showfont="Georgia 16 bold" # define a consistent font to use
         radio_color_bg = 'gray'
@@ -298,7 +298,7 @@ class ActivityDetector:
    
 def main(): 
     root = tk.Tk()
-    app = ActivityDetector(root)
+    app = ConfusionDetector(root)
     root.mainloop()
 
 if __name__ == '__main__':

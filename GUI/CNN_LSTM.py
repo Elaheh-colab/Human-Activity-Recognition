@@ -44,12 +44,21 @@ class CNN_LSTM(nn.Module):
         self.c0 = torch.zeros(num_layers*2, video_batch_size, hidden_size).to(device=device)
 
         #if bidirectional=True the output of LSTM will be hidden_size*2
+        # self.fc1 = nn.Linear(hidden_size*2, 512)
         self.fc1 = nn.Linear(hidden_size*2, 256)
         self.drp1 = nn.Dropout(0.5)
-        xavier_uniform_(self.fc1.weight)
+        kaiming_uniform_(self.fc1.weight, nonlinearity='relu')
         constant_(self.fc1.bias, 0)
-        self.fc2 = nn.Linear(256, 9)
-        xavier_uniform_(self.fc2.weight)
+        self.act1 = nn.ReLU()
+
+        self.fc2 = nn.Linear(512, 256)
+        self.drp2 = nn.Dropout(0.4)
+        kaiming_uniform_(self.fc2.weight, nonlinearity='relu')
+        constant_(self.fc2.bias, 0)
+        self.act2 = nn.ReLU()
+
+        self.fc3 = nn.Linear(256, num_classes)
+        xavier_uniform_(self.fc3.weight)
         constant_(self.fc2.bias, 0)
         
     def forward(self, x):
@@ -64,8 +73,10 @@ class CNN_LSTM(nn.Module):
         out_lstm, _ = self.lstm(out_CNN, (self.h0,self.c0))
         #out_lstm -> (batch_size, seq_length, hidden_size) -> we only need the last output in our sequence not middle outputs -> out_lstm[:, -1, :]
 
-        x = self.drp1(self.fc1(out_lstm[:, -1, :]))
-        x = self.fc2(x)
+        # x = self.drp1(self.act1(self.fc1(out_lstm[:, -1, :])))
+        # x = self.drp2(self.act2(self.fc2(x)))
+        x = self.drp1(self.act1(self.fc1(out_lstm[:, -1, :])))
+        x = self.fc3(x)
 
         return(x)
         # return(out_lstm)

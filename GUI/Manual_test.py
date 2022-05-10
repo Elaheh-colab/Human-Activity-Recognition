@@ -57,7 +57,7 @@ class preprocess_manual:
                 
         self.video_path = video_path
         self.clip_time = clip_time
-        self.clip_n_frames = 30
+        self.clip_n_frames = 20
 
         
         self.videos_2d = []
@@ -254,8 +254,8 @@ class preprocess_manual:
         seq_length = self.clip_n_frames #seq_length=hidden_size
         video_batch_size = int(ImageBatchSize/seq_length)
 
-        self.LSTM_CNN = CNN_LSTM(input_size=input_size, hidden_size=hidden_size, num_layers=num_layers, seq_length=seq_length, video_batch_size=video_batch_size, num_classes=7)
-        self.LSTM_CNN.load_state_dict(torch.load('/Users/elahehbaharlouei/Downloads/best_model_so_far.pth', map_location=torch.device('cpu')))
+        self.LSTM_CNN = CNN_LSTM(input_size=input_size, hidden_size=hidden_size, num_layers=num_layers, seq_length=seq_length, video_batch_size=video_batch_size, num_classes=50)
+        self.LSTM_CNN.load_state_dict(torch.load('/Users/elahehbaharlouei/Desktop/DL_Project/Code/Saved_Model/ResNet101.pth', map_location=torch.device('cpu')))
         self.LSTM_CNN.eval()
         print("Loaded model from disk")
 
@@ -347,21 +347,21 @@ class preprocess_manual:
         if max_id == 0:
             Text_on_Image = "Boxing:"
         elif max_id == 1:
-            Text_on_Image = "Eating:"
-        elif max_id == 2:
             Text_on_Image = "Clapping:"
+        elif max_id == 2:
+            Text_on_Image = "Eating:"
         elif max_id == 3:
-            Text_on_Image = "HandWaiving:"
-        elif max_id == 4:
             Text_on_Image = "Hugging:"
-        elif max_id == 5:
+        elif max_id == 4:
             Text_on_Image = "Jumping:"
-        elif max_id == 6:
+        elif max_id == 5:
             Text_on_Image = "Laughing:"
+        elif max_id == 6:
+            Text_on_Image = "Smoking:"
         elif max_id == 7:
-            Text_on_Image = "Smokingt:"
-        elif max_id == 8:
             Text_on_Image = "Walking:"
+        elif max_id == 8:
+            Text_on_Image = "HandWaiving:"
         Predict_Score = str(round(max_val[0].item(), 2))
     # def load_model_weights(self, network_model):
 
